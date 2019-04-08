@@ -61,6 +61,8 @@ if __name__ == '__main__':
     '''
     res = parser('192.168.0.182 - - [07/Apr/2019:17:35:45 +0900] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.40 Safari/537.36" "-"')
     print(res)
+    res = parser('192.168.0.182 - - [07/Apr/2019:17:35:50 +0900] "GET /robots.txt HTTP/1.1" 404 208 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.40 Safari/537.36"')
+    print(res)
     '''
     import sys
     with open(sys.argv[1]) as f:
