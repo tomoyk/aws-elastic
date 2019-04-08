@@ -36,7 +36,7 @@ def parser(line):
     request_items = [l for l in line.split() if l]
 
     try:
-        json_body['source_ip'] = request_items[0]
+        json_body['source_ip'] = str(request_items[0])
         json_body['remote_user'] = request_items[2]
         date_str = request_items[3].replace('[', '')
         date = dt.strptime(date_str, '%d/%b/%Y:%H:%M:%S')
