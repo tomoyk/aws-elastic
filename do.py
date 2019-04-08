@@ -14,8 +14,8 @@ credentials = boto3.Session().get_credentials()
 awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
 
 host = 'https://search-reiwa0407-bmwrgzepuso6dsiivp3ugyp5x4.ap-northeast-1.es.amazonaws.com' # the Amazon ES domain, including https://
-index = 'lambda-s3-index2'
-type = 'lambda-type'
+index = 'lambda-s3-index-sample'
+type = 'lambda-type2'
 url = host + '/' + index + '/' + type
 
 headers = { "Content-Type": "application/json" }
@@ -37,8 +37,10 @@ def handler(event, context):
         
         # Match the regular expressions to each line and index the JSON
         for line in lines:
-            document = parse(str(line))
+            document = parse(line)
             r = requests.post(url, auth=awsauth, json=document, headers=headers)
             if r.ok >= 400:
                 print(r)
-            print("success")
+            else:
+                print("success")
+

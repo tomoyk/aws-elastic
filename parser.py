@@ -5,12 +5,13 @@ import logging
 logger = logging.getLogger()
 
 def parser(line):
+    line = line.decode()
     json_body = {}
 
     '''
     Pickup enclosed "item" in double quotes
     '''
-    pattern_quote = re.compile(r'(\"[^\"]+\")')
+    pattern_quote = re.compile('(\"[^\"]+\")')
     quote_items = pattern_quote.findall(line)
 
     # remove blank item in list and double-quote in string
@@ -39,9 +40,10 @@ def parser(line):
     Pickup item splited by space
     '''
     request_items = [l for l in line.split() if l]
+    # print(request_items)
 
     try:
-        json_body['source_ip'] = str(request_items[0])
+        json_body['source_ip'] = request_items[0]
         json_body['remote_user'] = request_items[2]
         date_str = request_items[3].replace('[', '')
         date = dt.strptime(date_str, '%d/%b/%Y:%H:%M:%S')
