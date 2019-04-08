@@ -1,6 +1,9 @@
 import re
 from datetime import datetime as dt
 
+import logging
+logger = logging.getLogger()
+
 def parser(line):
     json_body = {}
 
@@ -23,8 +26,10 @@ def parser(line):
         json_body['referer'] = quote_items[1]
         json_body['user_agent'] = quote_items[2]
     except Exception as e:
-        print(e)
-        print("\t", line)
+        # print(e)
+        # print("\t", line)
+        logger.info(e)
+        logger.info(line)
         return {}
 
     # remove matched item in list
@@ -40,13 +45,15 @@ def parser(line):
         json_body['remote_user'] = request_items[2]
         date_str = request_items[3].replace('[', '')
         date = dt.strptime(date_str, '%d/%b/%Y:%H:%M:%S')
-        json_body['time_stamp'] = date.strftime('%Y-%m-%d %H:%M:%S')
-        json_body['time_zone'] = request_items[4].replace(']', '')
+        json_body['timestamp'] = date.strftime('%Y-%m-%dT%H:%M:%S.%f%z')
+        json_body['timezone'] = request_items[4].replace(']', '')
         json_body['status_code'] = request_items[5]
         json_body['body_bytes'] = request_items[6]
     except Exception as e:
-        print(e)
-        print("\t", line)
+        # print(e)
+        # print("\t", line)
+        logger.info(e)
+        logger.info(line)
         return {}
 
     '''
@@ -58,7 +65,6 @@ def parser(line):
 
 
 if __name__ == '__main__':
-    '''
     res = parser('192.168.0.182 - - [07/Apr/2019:17:35:45 +0900] "GET / HTTP/1.1" 200 612 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.40 Safari/537.36" "-"')
     print(res)
     res = parser('192.168.0.182 - - [07/Apr/2019:17:35:50 +0900] "GET /robots.txt HTTP/1.1" 404 208 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.40 Safari/537.36"')
@@ -72,4 +78,4 @@ if __name__ == '__main__':
             for k,v in r.items():
                 # print(k, ":", v)
                 pass
-            
+    '''
