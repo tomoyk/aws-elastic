@@ -8,12 +8,12 @@ from parser import parser as parse
 import logging
 logger = logging.getLogger()
 
-region = 'us-east-1' # e.g. us-west-1
+region = 'ap-northeast-1' # e.g. us-west-1
 service = 'es'
 credentials = boto3.Session().get_credentials()
 awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
 
-host = 'https://search-reiwa2019-mygw5mpopb4ul4kjtortpyrroe.us-east-1.es.amazonaws.com' # the Amazon ES domain, including https://
+host = 'https://search-reiwa0407-bmwrgzepuso6dsiivp3ugyp5x4.ap-northeast-1.es.amazonaws.com/' # the Amazon ES domain, including https://
 index = 'lambda-s3-index'
 type = 'lambda-type'
 url = host + '/' + index + '/' + type
